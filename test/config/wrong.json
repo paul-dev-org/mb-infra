@@ -1,0 +1,52 @@
+{
+    "services": {
+        "domain": {
+            "name": "example.com"
+        },
+        "s3": [
+            {
+                "bucketName": "bucket-name-1",
+                "public": true,
+                "usedBy": [
+                    "service-name-1"
+                ]
+            },
+            {
+                "bucketName": "bucket-name-2",
+                "public": false,
+                "usedBy": [
+                    "service-name-1",
+                    "service-name-2"
+                ]
+            }
+        ],
+        "sqs": [
+            {
+                "queueName": "queue-name-1",
+                "fifo": true,
+                "usedBy": [
+                    "service-name-1"
+                ]
+            },
+            {
+                "queueName": "queue-name-2",
+                "fifo": false,
+                "usedBy": [
+                    "service-name-1",
+                    "service-name-2"
+                ]
+            }
+        ],
+        "rds": {
+            "instanceClass": "db.t2.micro",
+            "engine": "postgres",
+            "storage": 20,
+            "multiAZ": false
+        },
+        "redis": {
+            "instanceClass": "cache.t2.micro",
+            "engine": "redis",
+            "memory": 0.5
+        }
+    }
+}
