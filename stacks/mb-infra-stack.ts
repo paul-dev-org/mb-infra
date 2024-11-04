@@ -2,11 +2,8 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { InfraConfig } from "../schemas/infra.config";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
-import { Cluster, ContainerImage } from "aws-cdk-lib/aws-ecs";
+import { Cluster } from "aws-cdk-lib/aws-ecs";
 import { ApplicationLoadBalancer } from "aws-cdk-lib/aws-elasticloadbalancingv2";
-import { EcsServiceConstruct } from "../constructs/ecsService.construct";
-import { Repository, TagMutability } from "aws-cdk-lib/aws-ecr";
-import { SsmSecrets } from "../constructs/ssm.construct";
 
 type MbInfraProps = cdk.StackProps & InfraConfig & { stage: string };
 
@@ -28,29 +25,29 @@ export class MbInfraStack extends cdk.Stack {
             internetFacing: true,
         });
 
-        props.apps.forEach((app) => {
-            const ecr = new Repository(this, `${props.stage}-${app.name}`, {
-                repositoryName: app.name,
-                imageTagMutability: TagMutability.IMMUTABLE,
-            });
-
-            const secrets = new SsmSecrets(this, `${props.stage}/${app.name}/Secrets`, {
-                secretPath: `/${props.stage}/${app.name}`,
-                secretsNames: app.parameterStoreSecrets,
-            });
-
-            new EcsServiceConstruct(this, app.name, {
-                serviceName: app.name,
-                containerPort: app.port,
-                containerImage: ContainerImage.fromAsset(app.dockerImagePath),
-                memoryLimit: app.memory,
-                cpuLimit: app.cpu,
-                secrets: secrets.secrets,
-                cluster,
-                vpc,
-                lb,
-                ecr,
-            });
-        });
+        // props.apps.forEach((app) => {
+        //     const ecr = new Repository(this, `${props.stage}-${app.name}`, {
+        //         repositoryName: app.name,
+        //         imageTagMutability: TagMutability.IMMUTABLE,
+        //     });
+        //
+        //     const secrets = new SsmSecrets(this, `${props.stage}/${app.name}/Secrets`, {
+        //         secretPath: `/${props.stage}/${app.name}`,
+        //         secretsNames: app.parameterStoreSecrets,
+        //     });
+        //
+        //     new EcsServiceConstruct(this, app.name, {
+        //         serviceName: app.name,
+        //         containerPort: app.port,
+        //         containerImage: ContainerImage.fromAsset(app.dockerImagePath),
+        //         memoryLimit: app.memory,
+        //         cpuLimit: app.cpu,
+        //         secrets: secrets.secrets,
+        //         cluster,
+        //         vpc,
+        //         lb,
+        //         ecr,
+        //     });
+        // });
     }
 }
