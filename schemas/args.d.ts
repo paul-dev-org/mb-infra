@@ -5,8 +5,8 @@ export declare const argsSchema: z.ZodObject<{
     env: z.ZodDefault<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     region: string;
-    env: string;
     profile: string;
+    env: string;
 }, {
     region: string;
     profile: string;
