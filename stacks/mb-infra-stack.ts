@@ -4,18 +4,20 @@ import { InfraConfig } from "../schemas/infra.config";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Cluster } from "aws-cdk-lib/aws-ecs";
 
-type MbInfraProps = cdk.StackProps & InfraConfig & { stage: string };
+type MbInfraProps = cdk.StackProps & InfraConfig;
 
 export class MbInfraStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: MbInfraProps) {
         super(scope, id, props);
 
-        const vpc = new Vpc(this, `${props.stage}/vpc`, {
+        const stage = this.node.tryGetContext("stage") as string;
+
+        const vpc = new Vpc(this, `${stage}/vpc`, {
             maxAzs: props.vpc.noOfAzs,
             natGateways: props.vpc.createNatGateway ? props.vpc.noOfNatGateways : 0,
         });
 
-        const cluster = new Cluster(this, `${props.stage}/cluster`, {
+        const cluster = new Cluster(this, `${stage}/cluster`, {
             vpc,
         });
 
