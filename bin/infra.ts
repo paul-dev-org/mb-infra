@@ -3,34 +3,33 @@ import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { pipe } from "../utils/fp";
 import { checkIfConfigFileExists, readConfigFile } from "../utils/config-ops";
-import { Args } from "../schemas/args";
-import { parsingArgs, validateArgs } from "../utils/args";
 import { InfraConfig } from "../schemas/infra.config";
 import { FILES } from "../conts/files";
 import { NetworkStack } from "../stacks/network.stack";
+import { Context } from "../constructs/context";
 
 const config = pipe<string, InfraConfig>(
     `${process.cwd()}/${FILES.INFRA_CONFIG}`,
     checkIfConfigFileExists,
     readConfigFile
 );
-const args = pipe<string[], Args>(process.argv.slice(2), validateArgs, parsingArgs);
-
 const env: cdk.Environment = {
-    account: args.profile,
-    region: args.region,
-};
-const tags = {
-    env: args.env,
-    managedBy: "mb-infra",
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
 };
 
 const cdkApp = new cdk.App();
 
-new NetworkStack(cdkApp, `${args.env}Network`, {
+const context = new Context(cdkApp, "mb-infra-context")
+const tags = {
+    env: context.stage,
+    managedBy: "mb-infra",
+};
+
+new NetworkStack(cdkApp, `${context.stage}Network`, {
     env,
     tags,
-    stage: args.env,
+    stage: context.stage,
     ...config.vpc,
 });
 

@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "bin": {
         "mb-infra": "bin/infra.js",
+        "infra-init": "bin/infra-init.js",
         "create-dummy-config": "bin/create-dummy-config.js"
     },
     "scripts": {
