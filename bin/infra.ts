@@ -3,8 +3,6 @@ import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { Context } from "../constructs/context";
 import { MbInfraStack } from "../stacks/mb-infra-stack";
-// @ts-ignore
-import config from "../../infra.config";
 
 const cdkApp = new cdk.App();
 
@@ -21,5 +19,5 @@ new MbInfraStack(cdkApp, context.config.project.name, {
     env,
     tags,
     stage: context.stage,
-    ...config,
+    ...context.config,
 });

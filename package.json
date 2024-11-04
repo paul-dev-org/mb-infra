@@ -4,7 +4,6 @@
     "bin": {
         "mb-infra": "bin/infra.js",
         "infra-init": "bin/infra-init.js",
-        "create-dummy-config": "bin/create-dummy-config.js"
     },
     "scripts": {
         "build": "tsc",

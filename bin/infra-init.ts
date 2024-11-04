@@ -4,6 +4,8 @@ import { execSync } from "node:child_process";
 import { log } from "../utils/logger";
 import { FILES } from "../conts/files";
 import { existsSync, writeFileSync } from "fs";
+import { join } from "path";
+import { InfraConfig } from "../schemas/infra.config";
 
 const cdkJson = `{
     "app": "npx mb-infra",
@@ -80,6 +82,77 @@ const cdkJson = `{
 }
 `;
 
+const dummyConfig: InfraConfig = {
+    project: {
+        name: "project-name",
+        stages: {
+            dev: {
+                account: "123456789012",
+                region: "us-east-1",
+            },
+            stg: {
+                account: "123456789012",
+                region: "us-east-1",
+            },
+        },
+    },
+    vpc: {
+        noOfAzs: 3,
+        createNatGateway: true,
+        noOfNatGateways: 1,
+    },
+    apps: [
+        {
+            name: "service-name-1",
+            dockerImagePath: "./apps/service-name-1",
+            healthCheckEndpoint: "/health",
+            port: 3000,
+            cpu: 256,
+            memory: 512,
+            minCapacity: 1,
+            maxCapacity: 2,
+            parameterStoreSecrets: ["PORT", "DB_PASSWORD"],
+        },
+        {
+            name: "service-name-2",
+            dockerImagePath: "./",
+            healthCheckEndpoint: "/health",
+            port: 3001,
+            cpu: 256,
+            memory: 512,
+            minCapacity: 2,
+            maxCapacity: 10,
+            parameterStoreSecrets: ["PORT", "DB_URL"],
+        },
+    ],
+    services: {
+        s3: [
+            {
+                bucketName: "bucket-name-1",
+                public: true,
+                usedBy: ["service-name-1"],
+            },
+            {
+                bucketName: "bucket-name-2",
+                public: false,
+                usedBy: ["service-name-1", "service-name-2"],
+            },
+        ],
+        sqs: [
+            {
+                queueName: "queue-name-1",
+                fifo: false,
+                usedBy: ["service-name-1"],
+            },
+            {
+                queueName: "queue-name-2",
+                fifo: true,
+                usedBy: ["service-name-2"],
+            },
+        ],
+    }
+}
+
 const checkIfCdkIsInstalled = () => {
     log.info("Checking if CDK is installed...");
     const cdkInstalled = execSync("which cdk").toString();
@@ -131,6 +204,21 @@ const updateGitIgnore = () => {
     log.success("Updated .gitignore file.");
 };
 
+const createDummyConfig = () => {
+    const fileName = FILES.INFRA_CONFIG;
+    const filePath = join(process.cwd(), fileName);
+
+    if (existsSync(filePath)) {
+        log.warn("File already exists");
+        log.warn("If you want to create a new file, please delete the existing file");
+        return;
+    }
+
+    writeFileSync(filePath, JSON.stringify(dummyConfig, null, 4));
+
+    console.log("File created successfully");
+};
+
 const helpfulMessage = () => {
     log.info(`Please run now following commands:
         1. npx cdk bootstrap --profile <profile-name> --region <region-name>
@@ -143,6 +231,7 @@ const initCdk = () => {
     // checkIfCdkIsInstalled();
     addCdkJson();
     updateGitIgnore();
+    createDummyConfig();
     helpfulMessage();
 };
 
