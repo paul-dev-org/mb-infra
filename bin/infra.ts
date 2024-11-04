@@ -8,8 +8,8 @@ const cdkApp = new cdk.App();
 
 const context = new Context(cdkApp, "mb-infra-context")
 const env: cdk.Environment = {
-    account: context.env.account,
-    region: context.env.region,
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
 };
 const tags = {
     env: context.stage,
