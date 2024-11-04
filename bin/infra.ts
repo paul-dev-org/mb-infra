@@ -8,14 +8,14 @@ const cdkApp = new cdk.App();
 
 const context = new Context(cdkApp, "mb-infra-context")
 const env: cdk.Environment = {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
+    account: context.env.account,
+    region: context.env.region,
 };
 const tags = {
     env: context.stage,
     managedBy: "mb-infra",
 };
-new MbInfraStack(cdkApp, 'MbInfra', {
+new MbInfraStack(cdkApp, context.config.project.name, {
     env,
     tags,
     stage: context.stage,
