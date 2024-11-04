@@ -27,7 +27,7 @@ const tags = {
 
 const cdkApp = new cdk.App();
 
-const network = new NetworkStack(cdkApp, `${args.env}Network`, {
+new NetworkStack(cdkApp, `${args.env}Network`, {
     env,
     tags,
     stage: args.env,
