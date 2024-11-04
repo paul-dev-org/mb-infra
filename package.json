@@ -2,7 +2,8 @@
     "name": "mb-infra",
     "version": "0.1.0",
     "bin": {
-        "mb-infra": "bin/infra.js"
+        "mb-infra": "bin/infra.js",
+        "create-dummy-config": "bin/create-dummy-config.js"
     },
     "scripts": {
         "build": "tsc",

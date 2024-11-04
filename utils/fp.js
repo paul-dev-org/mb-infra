@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.pipe = void 0;
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+const pipe = (initial, ...functions) => {
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+    return functions.reduce((result, func) => func(result), initial);
+};
+exports.pipe = pipe;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnAuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJmcC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFFQSwrREFBK0Q7QUFDeEQsTUFBTSxJQUFJLEdBQUcsQ0FBTyxPQUFVLEVBQUUsR0FBRyxTQUEyQixFQUFLLEVBQUU7SUFDeEUsK0RBQStEO0lBQy9ELE9BQU8sU0FBUyxDQUFDLE1BQU0sQ0FBQyxDQUFDLE1BQVcsRUFBRSxJQUFvQixFQUFFLEVBQUUsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLEVBQUUsT0FBTyxDQUFNLENBQUM7QUFDL0YsQ0FBQyxDQUFDO0FBSFcsUUFBQSxJQUFJLFFBR2YiLCJzb3VyY2VzQ29udGVudCI6WyJ0eXBlIEZ1bmM8VCwgVT4gPSAoYXJnOiBUKSA9PiBVO1xuXG4vLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgIEB0eXBlc2NyaXB0LWVzbGludC9uby1leHBsaWNpdC1hbnlcbmV4cG9ydCBjb25zdCBwaXBlID0gPFQsIFU+KGluaXRpYWw6IFQsIC4uLmZ1bmN0aW9uczogRnVuYzxhbnksIGFueT5bXSk6IFUgPT4ge1xuICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSAgQHR5cGVzY3JpcHQtZXNsaW50L25vLWV4cGxpY2l0LWFueVxuICAgIHJldHVybiBmdW5jdGlvbnMucmVkdWNlKChyZXN1bHQ6IGFueSwgZnVuYzogRnVuYzxhbnksIGFueT4pID0+IGZ1bmMocmVzdWx0KSwgaW5pdGlhbCkgYXMgVTtcbn07XG4iXX0=

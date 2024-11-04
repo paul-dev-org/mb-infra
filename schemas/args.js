@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.argsSchema = void 0;
+const zod_1 = require("zod");
+exports.argsSchema = zod_1.z.object({
+    profile: zod_1.z.string(),
+    region: zod_1.z.string(),
+    env: zod_1.z.string().default("dev"),
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXJncy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbImFyZ3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsNkJBQXdCO0FBRVgsUUFBQSxVQUFVLEdBQUcsT0FBQyxDQUFDLE1BQU0sQ0FBQztJQUMvQixPQUFPLEVBQUUsT0FBQyxDQUFDLE1BQU0sRUFBRTtJQUNuQixNQUFNLEVBQUUsT0FBQyxDQUFDLE1BQU0sRUFBRTtJQUNsQixHQUFHLEVBQUUsT0FBQyxDQUFDLE1BQU0sRUFBRSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUM7Q0FDakMsQ0FBQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgeiB9IGZyb20gXCJ6b2RcIjtcblxuZXhwb3J0IGNvbnN0IGFyZ3NTY2hlbWEgPSB6Lm9iamVjdCh7XG4gICAgcHJvZmlsZTogei5zdHJpbmcoKSxcbiAgICByZWdpb246IHouc3RyaW5nKCksXG4gICAgZW52OiB6LnN0cmluZygpLmRlZmF1bHQoXCJkZXZcIiksXG59KTtcblxuZXhwb3J0IHR5cGUgQXJncyA9IHouaW5mZXI8dHlwZW9mIGFyZ3NTY2hlbWE+O1xuIl19

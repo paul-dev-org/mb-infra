@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { join } from "path";
 import { existsSync, writeFileSync } from "fs";
 import { FILES } from "../conts/files";
