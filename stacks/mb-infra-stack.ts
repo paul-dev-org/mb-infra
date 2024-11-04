@@ -3,7 +3,6 @@ import { Construct } from "constructs";
 import { InfraConfig } from "../schemas/infra.config";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Cluster } from "aws-cdk-lib/aws-ecs";
-import { ApplicationLoadBalancer } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 
 type MbInfraProps = cdk.StackProps & InfraConfig & { stage: string };
 
@@ -20,10 +19,10 @@ export class MbInfraStack extends cdk.Stack {
             vpc,
         });
 
-        const lb = new ApplicationLoadBalancer(this, `${props.stage}/alb`, {
-            vpc,
-            internetFacing: true,
-        });
+        // const lb = new ApplicationLoadBalancer(this, `${props.stage}/alb`, {
+        //     vpc,
+        //     internetFacing: true,
+        // });
 
         // props.apps.forEach((app) => {
         //     const ecr = new Repository(this, `${props.stage}-${app.name}`, {
