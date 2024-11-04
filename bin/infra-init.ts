@@ -222,10 +222,10 @@ const createDummyConfig = () => {
 const initCdkRepo = () => {
     execSync("mkdir infra", { stdio: "inherit" });
     execSync("cd infra && cdk init app --language typescript", { stdio: "inherit" });
-    execSync("rm -rf bin/infra.ts", { stdio: "inherit" });
+    execSync("rm -rf ./infra/bin/infra.ts", { stdio: "inherit" });
     execSync("rm -rf lib/infra-stack.ts", { stdio: "inherit" });
 
-    const infraFile = readFileSync(join(__dirname, "inra"))
+    const infraFile = readFileSync(join(__dirname, "infra"))
     writeFileSync(process.cwd() + "/infra/bin/infra.ts", infraFile);
 
     const stackFile = readFileSync(join(__dirname, "stack"))
@@ -242,8 +242,8 @@ const helpfulMessage = () => {
 
 const initCdk = () => {
     // checkIfCdkIsInstalled();
-    addCdkJson();
-    updateGitIgnore();
+    // addCdkJson();
+    // updateGitIgnore();
     createDummyConfig();
     initCdkRepo();
     helpfulMessage();

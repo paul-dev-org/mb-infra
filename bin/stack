@@ -6,7 +6,7 @@ import { Cluster } from "aws-cdk-lib/aws-ecs";
 
 type MbInfraProps = cdk.StackProps & InfraConfig;
 
-export class MbInfraStack extends cdk.Stack {
+export class InfraStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: MbInfraProps) {
         super(scope, id, props);
 
