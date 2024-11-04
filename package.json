@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "bin": {
         "mb-infra": "bin/infra.js",
-        "infra-init": "bin/infra-init.js",
+        "infra-init": "bin/infra-init.js"
     },
     "scripts": {
         "build": "tsc",
