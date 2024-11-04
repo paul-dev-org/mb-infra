@@ -18,16 +18,16 @@ export class NetworkStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props: NetworkProps) {
         super(scope, id, props);
 
-        this.vpc = new Vpc(this, `${props.stage}Vpc`, {
+        this.vpc = new Vpc(this, `${props.stage}/vpc`, {
             maxAzs: props.noOfAzs,
             natGateways: props.createNatGateway ? props.noOfNatGateways : 0,
         });
 
-        this.cluster = new Cluster(this, `${props.stage}Cluster`, {
+        this.cluster = new Cluster(this, `${props.stage}/cluster`, {
             vpc: this.vpc,
         });
 
-        this.lb = new ApplicationLoadBalancer(this, `${props.stage}ALB`, {
+        this.lb = new ApplicationLoadBalancer(this, `${props.stage}/alb`, {
             vpc: this.vpc,
             internetFacing: true,
         });

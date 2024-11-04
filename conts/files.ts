@@ -1,5 +1,5 @@
 export const FILES = {
-    INFRA_CONFIG: 'infra.config.json',
+    INFRA_CONFIG: 'infra.config.ts',
     CDK_CONFIG: 'cdk.json',
     GIT_IGNORE: '.gitignore',
 } as const;

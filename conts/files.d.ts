@@ -1,5 +1,5 @@
 export declare const FILES: {
-    readonly INFRA_CONFIG: "infra.config.json";
+    readonly INFRA_CONFIG: "infra.config.ts";
     readonly CDK_CONFIG: "cdk.json";
     readonly GIT_IGNORE: ".gitignore";
 };

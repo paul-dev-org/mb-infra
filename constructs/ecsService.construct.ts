@@ -26,7 +26,7 @@ type ServiceProps = {
     ecr: Repository;
 };
 
-export class EcsService extends Construct {
+export class EcsServiceConstruct extends Construct {
     constructor(scope: Construct, id: string, props: ServiceProps) {
         super(scope, id);
 

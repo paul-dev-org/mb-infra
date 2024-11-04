@@ -1,0 +1,74 @@
+import { InfraConfig } from "paul-dev-org/mb-infra";
+
+const defaultConfig: InfraConfig = {
+    project: {
+        name: "project-name", // Give it a name
+        stages: {
+            dev: {
+                account: "123456789012", // Your AWS account number
+                region: "us-east-1", // Region where you want to deploy
+            },
+        },
+    },
+    vpc: {
+        noOfAzs: 3, // leave it as is if you don't know what it is
+        createNatGateway: true, // leave it as is if you don't know what it is
+        noOfNatGateways: 1, // leave it as is if you don't know what it is
+    },
+    apps: [
+        {
+            name: "service-name-1", // Give it a name
+            dockerImagePath: "./apps/service-name-1", // path to folder where Dockerfile is
+            healthCheckEndpoint: "/health", // endpoint to check if service is healthy
+            port: 3000, // port on which service will run
+            cpu: 256, // CPU units
+            memory: 512, // Memory in MB
+            minCapacity: 1, // Minimum number of running containers
+            maxCapacity: 2, // Maximum number of running containers (autoscaling)
+            parameterStoreSecrets: ["PORT", "DB_PASSWORD"], // Secrets stored in AWS Parameter Store to be pass to container
+        },
+        {
+            name: "service-name-2",
+            dockerImagePath: "./",
+            healthCheckEndpoint: "/health",
+            port: 3001,
+            cpu: 256,
+            memory: 512,
+            minCapacity: 2,
+            maxCapacity: 10,
+            parameterStoreSecrets: ["PORT", "DB_URL"],
+        },
+    ],
+    services: {
+        domain: {
+            // Delete this if you don't have a domain
+            name: "example.com",
+        },
+        s3: [
+            // Delete this if you don't need S3 buckets
+            {
+                bucketName: "bucket-name-1",
+                public: true,
+                usedBy: ["service-name-1"],
+            },
+            {
+                bucketName: "bucket-name-2",
+                public: false,
+                usedBy: ["service-name-1", "service-name-2"],
+            },
+        ],
+        sqs: [
+            // Delete this if you don't need SQS queues
+            {
+                queueName: "queue-name-1",
+                fifo: true,
+                usedBy: ["service-name-1"],
+            },
+            {
+                queueName: "queue-name-2",
+                fifo: false,
+                usedBy: ["service-name-1", "service-name-2"],
+            },
+        ],
+    },
+};

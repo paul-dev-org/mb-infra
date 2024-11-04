@@ -2,6 +2,7 @@ import { z } from "zod";
 declare const appSchema: z.ZodObject<{
     name: z.ZodString;
     healthCheckEndpoint: z.ZodString;
+    dockerImagePath: z.ZodString;
     port: z.ZodNumber;
     cpu: z.ZodDefault<z.ZodNumber>;
     memory: z.ZodDefault<z.ZodNumber>;
@@ -12,8 +13,9 @@ declare const appSchema: z.ZodObject<{
     name: string;
     port: number;
     memory: number;
-    cpu: number;
     healthCheckEndpoint: string;
+    dockerImagePath: string;
+    cpu: number;
     minCapacity: number;
     maxCapacity: number;
     parameterStoreSecrets?: string[] | undefined;
@@ -21,6 +23,7 @@ declare const appSchema: z.ZodObject<{
     name: string;
     port: number;
     healthCheckEndpoint: string;
+    dockerImagePath: string;
     memory?: number | undefined;
     cpu?: number | undefined;
     minCapacity?: number | undefined;
@@ -73,7 +76,245 @@ declare const sqsSchema: z.ZodObject<{
     queueName: string;
     fifo: boolean;
 }>;
+declare const projectSchema: z.ZodObject<{
+    name: z.ZodString;
+    stages: z.ZodDefault<z.ZodObject<{
+        dev: z.ZodOptional<z.ZodObject<{
+            account: z.ZodString;
+            region: z.ZodString;
+        }, "strip", z.ZodTypeAny, {
+            region: string;
+            account: string;
+        }, {
+            region: string;
+            account: string;
+        }>>;
+        stg: z.ZodOptional<z.ZodObject<{
+            account: z.ZodString;
+            region: z.ZodString;
+        }, "strip", z.ZodTypeAny, {
+            region: string;
+            account: string;
+        }, {
+            region: string;
+            account: string;
+        }>>;
+        prd: z.ZodOptional<z.ZodObject<{
+            account: z.ZodString;
+            region: z.ZodString;
+        }, "strip", z.ZodTypeAny, {
+            region: string;
+            account: string;
+        }, {
+            region: string;
+            account: string;
+        }>>;
+        qa: z.ZodOptional<z.ZodObject<{
+            account: z.ZodString;
+            region: z.ZodString;
+        }, "strip", z.ZodTypeAny, {
+            region: string;
+            account: string;
+        }, {
+            region: string;
+            account: string;
+        }>>;
+    }, "strip", z.ZodTypeAny, {
+        dev?: {
+            region: string;
+            account: string;
+        } | undefined;
+        stg?: {
+            region: string;
+            account: string;
+        } | undefined;
+        prd?: {
+            region: string;
+            account: string;
+        } | undefined;
+        qa?: {
+            region: string;
+            account: string;
+        } | undefined;
+    }, {
+        dev?: {
+            region: string;
+            account: string;
+        } | undefined;
+        stg?: {
+            region: string;
+            account: string;
+        } | undefined;
+        prd?: {
+            region: string;
+            account: string;
+        } | undefined;
+        qa?: {
+            region: string;
+            account: string;
+        } | undefined;
+    }>>;
+}, "strip", z.ZodTypeAny, {
+    name: string;
+    stages: {
+        dev?: {
+            region: string;
+            account: string;
+        } | undefined;
+        stg?: {
+            region: string;
+            account: string;
+        } | undefined;
+        prd?: {
+            region: string;
+            account: string;
+        } | undefined;
+        qa?: {
+            region: string;
+            account: string;
+        } | undefined;
+    };
+}, {
+    name: string;
+    stages?: {
+        dev?: {
+            region: string;
+            account: string;
+        } | undefined;
+        stg?: {
+            region: string;
+            account: string;
+        } | undefined;
+        prd?: {
+            region: string;
+            account: string;
+        } | undefined;
+        qa?: {
+            region: string;
+            account: string;
+        } | undefined;
+    } | undefined;
+}>;
 export declare const infraConfigSchema: z.ZodObject<{
+    project: z.ZodObject<{
+        name: z.ZodString;
+        stages: z.ZodDefault<z.ZodObject<{
+            dev: z.ZodOptional<z.ZodObject<{
+                account: z.ZodString;
+                region: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                region: string;
+                account: string;
+            }, {
+                region: string;
+                account: string;
+            }>>;
+            stg: z.ZodOptional<z.ZodObject<{
+                account: z.ZodString;
+                region: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                region: string;
+                account: string;
+            }, {
+                region: string;
+                account: string;
+            }>>;
+            prd: z.ZodOptional<z.ZodObject<{
+                account: z.ZodString;
+                region: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                region: string;
+                account: string;
+            }, {
+                region: string;
+                account: string;
+            }>>;
+            qa: z.ZodOptional<z.ZodObject<{
+                account: z.ZodString;
+                region: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                region: string;
+                account: string;
+            }, {
+                region: string;
+                account: string;
+            }>>;
+        }, "strip", z.ZodTypeAny, {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        }, {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        }>>;
+    }, "strip", z.ZodTypeAny, {
+        name: string;
+        stages: {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        };
+    }, {
+        name: string;
+        stages?: {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        } | undefined;
+    }>;
     vpc: z.ZodDefault<z.ZodObject<{
         noOfAzs: z.ZodDefault<z.ZodNumber>;
         createNatGateway: z.ZodDefault<z.ZodBoolean>;
@@ -90,6 +331,7 @@ export declare const infraConfigSchema: z.ZodObject<{
     apps: z.ZodArray<z.ZodObject<{
         name: z.ZodString;
         healthCheckEndpoint: z.ZodString;
+        dockerImagePath: z.ZodString;
         port: z.ZodNumber;
         cpu: z.ZodDefault<z.ZodNumber>;
         memory: z.ZodDefault<z.ZodNumber>;
@@ -100,8 +342,9 @@ export declare const infraConfigSchema: z.ZodObject<{
         name: string;
         port: number;
         memory: number;
-        cpu: number;
         healthCheckEndpoint: string;
+        dockerImagePath: string;
+        cpu: number;
         minCapacity: number;
         maxCapacity: number;
         parameterStoreSecrets?: string[] | undefined;
@@ -109,6 +352,7 @@ export declare const infraConfigSchema: z.ZodObject<{
         name: string;
         port: number;
         healthCheckEndpoint: string;
+        dockerImagePath: string;
         memory?: number | undefined;
         cpu?: number | undefined;
         minCapacity?: number | undefined;
@@ -150,6 +394,9 @@ export declare const infraConfigSchema: z.ZodObject<{
             fifo: boolean;
         }>, "many">>;
     }, "strip", z.ZodTypeAny, {
+        domain?: {
+            name: string;
+        } | undefined;
         s3?: {
             public: boolean;
             bucketName: string;
@@ -160,10 +407,10 @@ export declare const infraConfigSchema: z.ZodObject<{
             queueName: string;
             fifo: boolean;
         }[] | undefined;
-        domain?: {
-            name: string;
-        } | undefined;
     }, {
+        domain?: {
+            name: string;
+        } | undefined;
         s3?: {
             public: boolean;
             bucketName: string;
@@ -174,11 +421,29 @@ export declare const infraConfigSchema: z.ZodObject<{
             queueName: string;
             fifo: boolean;
         }[] | undefined;
-        domain?: {
-            name: string;
-        } | undefined;
     }>>;
 }, "strip", z.ZodTypeAny, {
+    project: {
+        name: string;
+        stages: {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        };
+    };
     vpc: {
         noOfAzs: number;
         createNatGateway: boolean;
@@ -188,13 +453,17 @@ export declare const infraConfigSchema: z.ZodObject<{
         name: string;
         port: number;
         memory: number;
-        cpu: number;
         healthCheckEndpoint: string;
+        dockerImagePath: string;
+        cpu: number;
         minCapacity: number;
         maxCapacity: number;
         parameterStoreSecrets?: string[] | undefined;
     }[];
     services?: {
+        domain?: {
+            name: string;
+        } | undefined;
         s3?: {
             public: boolean;
             bucketName: string;
@@ -205,15 +474,34 @@ export declare const infraConfigSchema: z.ZodObject<{
             queueName: string;
             fifo: boolean;
         }[] | undefined;
-        domain?: {
-            name: string;
-        } | undefined;
     } | undefined;
 }, {
+    project: {
+        name: string;
+        stages?: {
+            dev?: {
+                region: string;
+                account: string;
+            } | undefined;
+            stg?: {
+                region: string;
+                account: string;
+            } | undefined;
+            prd?: {
+                region: string;
+                account: string;
+            } | undefined;
+            qa?: {
+                region: string;
+                account: string;
+            } | undefined;
+        } | undefined;
+    };
     apps: {
         name: string;
         port: number;
         healthCheckEndpoint: string;
+        dockerImagePath: string;
         memory?: number | undefined;
         cpu?: number | undefined;
         minCapacity?: number | undefined;
@@ -226,6 +514,9 @@ export declare const infraConfigSchema: z.ZodObject<{
         noOfNatGateways?: number | undefined;
     } | undefined;
     services?: {
+        domain?: {
+            name: string;
+        } | undefined;
         s3?: {
             public: boolean;
             bucketName: string;
@@ -236,12 +527,10 @@ export declare const infraConfigSchema: z.ZodObject<{
             queueName: string;
             fifo: boolean;
         }[] | undefined;
-        domain?: {
-            name: string;
-        } | undefined;
     } | undefined;
 }>;
 export type InfraConfig = z.infer<typeof infraConfigSchema>;
+export type ProjectConfig = z.infer<typeof projectSchema>;
 export type AppConfig = z.infer<typeof appSchema>;
 export type VpcConfig = z.infer<typeof vpcSchema>;
 export type DomainConfig = z.infer<typeof domainSchema>;
