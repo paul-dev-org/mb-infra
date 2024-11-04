@@ -72,7 +72,7 @@ const projectSchema = z.object({
 });
 
 export const infraConfigSchema = z.object({
-    project: projectSchema,
+    // project: projectSchema,
     vpc: vpcSchema.default({}),
     apps: z.array(appSchema),
     services: z

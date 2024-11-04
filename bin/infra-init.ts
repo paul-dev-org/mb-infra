@@ -3,7 +3,7 @@
 import { execSync } from "node:child_process";
 import { log } from "../utils/logger";
 import { FILES } from "../conts/files";
-import { existsSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { InfraConfig } from "../schemas/infra.config";
 
@@ -83,19 +83,19 @@ const cdkJson = `{
 `;
 
 const dummyConfig: InfraConfig = {
-    project: {
-        name: "project-name",
-        stages: {
-            dev: {
-                account: "123456789012",
-                region: "us-east-1",
-            },
-            stg: {
-                account: "123456789012",
-                region: "us-east-1",
-            },
-        },
-    },
+    // project: {
+    //     name: "project-name",
+    //     stages: {
+    //         dev: {
+    //             account: "123456789012",
+    //             region: "us-east-1",
+    //         },
+    //         stg: {
+    //             account: "123456789012",
+    //             region: "us-east-1",
+    //         },
+    //     },
+    // },
     vpc: {
         noOfAzs: 3,
         createNatGateway: true,
@@ -219,10 +219,23 @@ const createDummyConfig = () => {
     console.log("File created successfully");
 };
 
+const initCdkRepo = () => {
+    execSync("mkdir infra", { stdio: "inherit" });
+    execSync("cd infra && cdk init app --language typescript", { stdio: "inherit" });
+    execSync("rm -rf bin/infra.ts", { stdio: "inherit" });
+    execSync("rm -rf lib/infra-stack.ts", { stdio: "inherit" });
+
+    const infraFile = readFileSync(join(__dirname, "inra"))
+    writeFileSync(process.cwd() + "/infra/bin/infra.ts", infraFile);
+
+    const stackFile = readFileSync(join(__dirname, "stack"))
+    writeFileSync(process.cwd() + "/infra/lib/infra-stack.ts", stackFile);
+}
+
 const helpfulMessage = () => {
     log.info(`Please run now following commands:
-        1. npx cdk bootstrap --profile <profile-name> --region <region-name>
-        2. npx cdk deploy --profile <profile-name> --region <region-name>
+        1. npx cdk bootstrap --profile <profile-name> --region <region-name> --context stage=<stage-name>
+        2. npx cdk deploy --profile <profile-name> --region <region-name> --context stage=<stage-name>
     `);
 
 }
@@ -232,6 +245,7 @@ const initCdk = () => {
     addCdkJson();
     updateGitIgnore();
     createDummyConfig();
+    initCdkRepo();
     helpfulMessage();
 };
 

@@ -22,7 +22,7 @@ const env: cdk.Environment = {
 const tags = {
     managedBy: "mb-infra",
 };
-new MbInfraStack(cdkApp, config.project.name, {
+new MbInfraStack(cdkApp, 'MbInfra', {
     env,
     tags,
     ...config,

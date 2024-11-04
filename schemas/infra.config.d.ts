@@ -196,125 +196,6 @@ declare const projectSchema: z.ZodObject<{
     } | undefined;
 }>;
 export declare const infraConfigSchema: z.ZodObject<{
-    project: z.ZodObject<{
-        name: z.ZodString;
-        stages: z.ZodDefault<z.ZodObject<{
-            dev: z.ZodOptional<z.ZodObject<{
-                account: z.ZodString;
-                region: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                region: string;
-                account: string;
-            }, {
-                region: string;
-                account: string;
-            }>>;
-            stg: z.ZodOptional<z.ZodObject<{
-                account: z.ZodString;
-                region: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                region: string;
-                account: string;
-            }, {
-                region: string;
-                account: string;
-            }>>;
-            prd: z.ZodOptional<z.ZodObject<{
-                account: z.ZodString;
-                region: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                region: string;
-                account: string;
-            }, {
-                region: string;
-                account: string;
-            }>>;
-            qa: z.ZodOptional<z.ZodObject<{
-                account: z.ZodString;
-                region: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                region: string;
-                account: string;
-            }, {
-                region: string;
-                account: string;
-            }>>;
-        }, "strip", z.ZodTypeAny, {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        }, {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        }>>;
-    }, "strip", z.ZodTypeAny, {
-        name: string;
-        stages: {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        };
-    }, {
-        name: string;
-        stages?: {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        } | undefined;
-    }>;
     vpc: z.ZodDefault<z.ZodObject<{
         noOfAzs: z.ZodDefault<z.ZodNumber>;
         createNatGateway: z.ZodDefault<z.ZodBoolean>;
@@ -423,27 +304,6 @@ export declare const infraConfigSchema: z.ZodObject<{
         }[] | undefined;
     }>>;
 }, "strip", z.ZodTypeAny, {
-    project: {
-        name: string;
-        stages: {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        };
-    };
     vpc: {
         noOfAzs: number;
         createNatGateway: boolean;
@@ -476,27 +336,6 @@ export declare const infraConfigSchema: z.ZodObject<{
         }[] | undefined;
     } | undefined;
 }, {
-    project: {
-        name: string;
-        stages?: {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        } | undefined;
-    };
     apps: {
         name: string;
         port: number;

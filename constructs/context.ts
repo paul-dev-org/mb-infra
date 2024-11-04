@@ -20,18 +20,6 @@ export class Context extends Construct {
         );
         this.stage = this.node.tryGetContext("stage") as stageType;
 
-        const env = config.project.stages[this.stage];
-
-        if (!env?.account) {
-            throw new Error(`Stage ${this.stage} not found in infra.config.ts`);
-        }
-
-        this.env = {
-            account: env?.account,
-            region: env?.region,
-            stage: this.stage,
-        };
-
         this.config = config;
     }
 }

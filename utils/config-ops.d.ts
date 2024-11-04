@@ -1,26 +1,5 @@
 export declare const checkIfConfigFileExists: (filePath: string) => string;
 export declare const readConfigFile: (filePath: string) => {
-    project: {
-        name: string;
-        stages: {
-            dev?: {
-                region: string;
-                account: string;
-            } | undefined;
-            stg?: {
-                region: string;
-                account: string;
-            } | undefined;
-            prd?: {
-                region: string;
-                account: string;
-            } | undefined;
-            qa?: {
-                region: string;
-                account: string;
-            } | undefined;
-        };
-    };
     vpc: {
         noOfAzs: number;
         createNatGateway: boolean;
