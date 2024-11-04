@@ -1,18 +1,10 @@
 #!/usr/bin/env node
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { pipe } from "../utils/fp";
-import { checkIfConfigFileExists, readConfigFile } from "../utils/config-ops";
-import { InfraConfig } from "../schemas/infra.config";
-import { FILES } from "../conts/files";
 import { Context } from "../constructs/context";
 import { MbInfraStack } from "../stacks/mb-infra-stack";
-
-const config = pipe<string, InfraConfig>(
-    `${process.cwd()}/${FILES.INFRA_CONFIG}`,
-    checkIfConfigFileExists,
-    readConfigFile
-);
+// @ts-ignore
+import config from "../../infra.config";
 
 const cdkApp = new cdk.App();
 

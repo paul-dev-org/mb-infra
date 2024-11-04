@@ -1,6 +1,6 @@
-import { InfraConfig } from "paul-dev-org/mb-infra";
+import { InfraConfig } from "mb-infra";
 
-const defaultConfig: InfraConfig = {
+export default {
     project: {
         name: "project-name", // Give it a name
         stages: {
@@ -71,4 +71,4 @@ const defaultConfig: InfraConfig = {
             },
         ],
     },
-};
+} as InfraConfig;
