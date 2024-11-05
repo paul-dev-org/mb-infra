@@ -9,7 +9,7 @@ on:
         default: false
         type: boolean
       {{service_b}}:
-        description: "Deploy {{service_b}"
+        description: "Deploy {{service_b}}"
         required: true
         default: false
         type: boolean
