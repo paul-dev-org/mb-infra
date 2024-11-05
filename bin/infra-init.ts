@@ -242,10 +242,10 @@ const helpfulMessage = () => {
 
 const initCdk = () => {
     // checkIfCdkIsInstalled();
-    // addCdkJson();
-    // updateGitIgnore();
+    addCdkJson();
+    updateGitIgnore();
     createDummyConfig();
-    initCdkRepo();
+    // initCdkRepo();
     helpfulMessage();
 };
 
