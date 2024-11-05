@@ -1,0 +1,70 @@
+{
+    "vpc": {
+        "noOfAzs": 3,
+        "createNatGateway": true,
+        "noOfNatGateways": 1
+    },
+    "apps": [
+        {
+            "name": "auth-service",
+            "dockerImagePath": "./apps/auth-service",
+            "healthCheckEndpoint": "/",
+            "port": 3000,
+            "cpu": 256,
+            "memory": 512,
+            "minCapacity": 1,
+            "maxCapacity": 5,
+            "parameterStoreSecrets": [
+                "MSG"
+            ]
+        },
+        {
+            "name": "stripe-service",
+            "dockerImagePath": "./apps/stripe-service",
+            "healthCheckEndpoint": "/",
+            "port": 3001,
+            "cpu": 256,
+            "memory": 512,
+            "minCapacity": 2,
+            "maxCapacity": 10,
+            "parameterStoreSecrets": [
+                "MSG"
+            ]
+        }
+    ],
+    "services": {
+        "s3": [
+            {
+                "bucketName": "bucket-name-1",
+                "public": true,
+                "usedBy": [
+                    "service-name-1"
+                ]
+            },
+            {
+                "bucketName": "bucket-name-2",
+                "public": false,
+                "usedBy": [
+                    "service-name-1",
+                    "service-name-2"
+                ]
+            }
+        ],
+        "sqs": [
+            {
+                "queueName": "queue-name-1",
+                "fifo": false,
+                "usedBy": [
+                    "service-name-1"
+                ]
+            },
+            {
+                "queueName": "queue-name-2",
+                "fifo": true,
+                "usedBy": [
+                    "service-name-2"
+                ]
+            }
+        ]
+    }
+}

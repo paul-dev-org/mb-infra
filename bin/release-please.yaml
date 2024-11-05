@@ -1,0 +1,54 @@
+name: Release Please
+
+on:
+  workflow_dispatch:
+    inputs:
+      {{service_a}}:
+        description: "Deploy {{service_a}}"
+        required: true
+        default: false
+        type: boolean
+      {{service_b}}:
+        description: "Deploy {{service_b}"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  actions: write # Need this to trigger another workflow
+
+jobs:
+  create-release-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create release branch
+        id: create_branch
+        run: |
+          BRANCH_NAME="release/$(date +'%Y-%m-%d-%H-%M')"
+          git checkout -b $BRANCH_NAME
+          git push origin $BRANCH_NAME
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Trigger deployment workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yaml',
+              ref: '${{ steps.create_branch.outputs.branch_name }}',
+              inputs: {
+                service_a: '${{ github.event.inputs.{{service_a}} }}',
+                service_b: '${{ github.event.inputs.{{service_b}} }}'
+              }
+            })

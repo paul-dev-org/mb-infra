@@ -1,0 +1,70 @@
+name: Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      {{service_a}}:
+        description: 'Deploy {{service_a}}'
+        required: true
+        type: string
+      {{service_b}}:
+        description: 'Deploy {{service_b}}'
+        required: true
+        type: string
+
+jobs:
+  deploy-stg-{{service_a}}:
+    runs-on: ubuntu-latest
+    environment: stg
+    if: ${{ inputs.{{service_a}} == 'true' }}
+    concurrency:
+      group: stg-{{service_a}}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy auth-service
+        run: echo "Deploying to stg {{service_a}} on ${{ github.ref_name }}"
+
+  deploy-prd-{{service_a}}:
+    needs: deploy-stg-{{service_a}}
+    runs-on: ubuntu-latest
+    environment: prd
+    concurrency:
+      group: prd-{{service_a}}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy {{service_a}}
+        run: echo "Deploying to prod service-a on ${{ github.ref_name }}"
+
+  deploy-stg-{{service_b}}:
+    runs-on: ubuntu-latest
+    environment: stg
+    if: ${{ inputs.service-b == 'true' }}
+    concurrency:
+      group: stg-{{service_b}}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy {{service_b}}
+        run: echo "Deploying to stg {{service_b}} on ${{ github.ref_name }}"
+
+  deploy-prd-{{service_b}}:
+    needs: deploy-stg-{{service_b}}
+    runs-on: ubuntu-latest
+    environment: prd
+    concurrency:
+      group: prd-{{service_b}}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy {{service_b}}
+        run: echo "Deploying to prod {{service_b}} on ${{ github.ref_name }}"
